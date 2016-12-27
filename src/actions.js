@@ -11,13 +11,7 @@ const todoClick = (id) => ({
     id
 });
 
-const filterLinkClick = (filter) => ({
-    type: 'SET_VISIBILITY_FILTER',
-    filter
-});
-
 export {
     addTodo,
-    todoClick,
-    filterLinkClick
+    todoClick
 };
