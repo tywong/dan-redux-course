@@ -1,5 +1,11 @@
 import uuid from 'node-uuid';
 
+const receiveTodos = (todos, filter) => ( {
+    type: 'RECEIVE_TODOS',
+    todos,
+    filter
+})
+
 const addTodo = (text) => ( {
     type: 'ADD_TODO',
     id: uuid.v4(),
@@ -13,5 +19,6 @@ const todoClick = (id) => ({
 
 export {
     addTodo,
-    todoClick
+    todoClick,
+    receiveTodos
 };

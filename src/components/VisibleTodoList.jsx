@@ -3,23 +3,26 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
 import TodoList from './TodoList.jsx';
-import { todoClick } from '../actions';
+import { todoClick, receiveTodos } from '../actions';
 import { getVisibleTodos } from '../reducers';
 import { fetchTodos } from '../api';
 
 class VisibleTodoList extends React.Component {
     componentDidMount() {
-        fetchTodos(this.props.filter).then( todos => {
-            console.log(todos);
-        });
+        this.fetchData();
     }
 
     componentDidUpdate(prevProps) {
         if(this.props.filter !== prevProps.filter) {
-            fetchTodos(this.props.filter).then( todos => {
-                console.log(todos);
-            });
+            this.fetchData();
         }
+    }
+
+    fetchData() {
+        const {filter, receiveTodos} = this.props;
+        fetchTodos(filter).then( todos => {
+            receiveTodos(todos, filter)
+        });
     }
 
     render() {
@@ -38,13 +41,15 @@ const mapStateToProps = (state, { params }) => {
 const mapDispatchToProps = (dispatch) => ({
     onTodoClick: (id) => {
         dispatch(todoClick(id));
+    },
+    receiveTodos: (todos, filter) => {
+        dispatch(receiveTodos(todos, filter));
     }
 });
 
 VisibleTodoList = connect(
     mapStateToProps,
-    mapDispatchToProps  // I don't know to use the shorthand:
-                        // { onTodoClick: todoClick }
+    mapDispatchToProps
 )(VisibleTodoList);
 
 export default withRouter(VisibleTodoList);
