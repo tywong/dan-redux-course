@@ -38,18 +38,26 @@ const mapStateToProps = (state, { params }) => {
     }
 };
 
-const mapDispatchToProps = (dispatch) => ({
-    onTodoClick: (id) => {
-        dispatch(todoClick(id));
-    },
-    receiveTodos: (todos, filter) => {
-        dispatch(receiveTodos(todos, filter));
-    }
-});
-
 VisibleTodoList = connect(
     mapStateToProps,
-    mapDispatchToProps
+    {
+        onTodoClick: todoClick,
+        receiveTodos
+    }
 )(VisibleTodoList);
+
+// const mapDispatchToProps = (dispatch) => ({
+//     onTodoClick: (id) => {
+//         dispatch(todoClick(id));
+//     },
+//     receiveTodos: (todos, filter) => {
+//         dispatch(receiveTodos(todos, filter));
+//     }
+// });
+//
+// VisibleTodoList = connect(
+//     mapStateToProps,
+//     mapDispatchToProps
+// )(VisibleTodoList);
 
 export default withRouter(VisibleTodoList);
