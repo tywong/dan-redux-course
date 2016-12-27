@@ -18,8 +18,11 @@ const fakeDB = [
     }
 ];
 
+const delay = (ms) =>
+    new Promise(resolve => setTimeout(resolve, ms));
+
 const fetchTodos = (type) => {
-    return Promise.resolve()
+    return delay(1000)
     .then(
         () => {
             switch(type) {

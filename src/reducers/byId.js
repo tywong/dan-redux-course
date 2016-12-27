@@ -1,4 +1,4 @@
-const todoCache = false;
+const todoCache = true;
 
 const byId = (state = {}, action) => {
     switch(action.type) {
