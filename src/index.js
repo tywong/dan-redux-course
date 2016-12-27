@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 
 import configureStore from './configureStore';
-import Root from './Root.jsx';
+import Root from './components/Root.jsx';
 
 ReactDOM.render(
     <Root store={ configureStore() }/>,

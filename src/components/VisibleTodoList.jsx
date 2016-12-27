@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
 import TodoList from './TodoList.jsx';
-import { todoClick } from './actions';
+import { todoClick } from '../actions/index';
 
 const getVisibleTodos = (todos, filter) => {
     switch(filter) {

@@ -1,5 +1,3 @@
-import { combineReducers } from 'redux';
-
 const todo = (state = {}, action) => {
     switch(action.type) {
         case 'ADD_TODO':
@@ -23,22 +21,4 @@ const todo = (state = {}, action) => {
     }
 }
 
-const todos = (state = [], action) => {
-    switch(action.type) {
-        case 'ADD_TODO':
-        return [
-            ...state,
-            todo( action.todo, action )
-        ];
-        case 'TOGGLE_TODO':
-        return state.map( (t) => todo(t, action) );
-        default:
-        return state;
-    }
-};
-
-const todoApp = combineReducers({
-    todos
-});
-
-export default todoApp;
+export default todo;
