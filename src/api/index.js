@@ -19,16 +19,21 @@ const fakeDB = [
 ];
 
 const fetchTodos = (type) => {
-    switch(type) {
-        case 'all':
-        return fakeDB;
-        case 'active':
-        return fakeDB.filter( t => !t.completed );
-        case 'completed':
-        return fakeDB.filter( t => t.completed );
-        default:
-        return fakeDB;
-    }
+    return Promise.resolve()
+    .then(
+        () => {
+            switch(type) {
+                case 'all':
+                return fakeDB;
+                case 'active':
+                return fakeDB.filter( t => !t.completed );
+                case 'completed':
+                return fakeDB.filter( t => t.completed );
+                default:
+                return fakeDB;
+            }
+        }
+    );
 }
 
 export {

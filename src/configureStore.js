@@ -1,8 +1,5 @@
 import { createStore } from 'redux';
-
 import todoAppReducer from './reducers/index';
-import { loadState, saveState } from './localState';
-import throttle from 'lodash/throttle';
 
 const addLoggingToDispatch = (store) => {
     const rawDispatch = store.dispatch;
@@ -23,17 +20,10 @@ const addLoggingToDispatch = (store) => {
 const configureStore = () => {
     const store = createStore(
         todoAppReducer,
-        loadState(),
         window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
     );
 
     store.dispatch = addLoggingToDispatch(store);
-
-    store.subscribe(
-        throttle( () => {
-            saveState( { todos: store.getState().todos } )
-        }, 1000)
-    );
 
     return store;
 };
