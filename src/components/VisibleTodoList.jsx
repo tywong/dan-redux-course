@@ -1,21 +1,11 @@
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
 import TodoList from './TodoList.jsx';
-import { todoClick } from '../actions/index';
-
-const getVisibleTodos = (todos, filter) => {
-    switch(filter) {
-        case 'active':
-        return todos.filter( t => !t.completed );
-        case 'completed':
-        return todos.filter( t => t.completed );
-        default:
-        return todos;
-    }
-}
+import { todoClick } from '../actions';
+import { getVisibleTodos } from '../reducers';
 
 const mapStateToProps = (state, { params }) => ({
-    todos: getVisibleTodos(state.todos, params.filter)
+    todos: getVisibleTodos(state, params.filter)
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -26,7 +16,8 @@ const mapDispatchToProps = (dispatch) => ({
 
 const VisibleTodoList = connect(
     mapStateToProps,
-    mapDispatchToProps
+    mapDispatchToProps  // I don't know to use the shorthand:
+                        // { onTodoClick: todoClick }
 )(TodoList);
 
 export default withRouter(VisibleTodoList);
