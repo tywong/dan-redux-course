@@ -15,7 +15,11 @@ class VisibleTodoList extends React.Component {
     }
 
     componentDidUpdate(prevProps) {
-
+        if(this.props.filter !== prevProps.filter) {
+            fetchTodos(this.props.filter).then( todos => {
+                console.log(todos);
+            });
+        }
     }
 
     render() {
