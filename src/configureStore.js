@@ -17,6 +17,20 @@ const addLoggingToDispatch = (store) => {
     }
 }
 
+const addPromiseSuppportToDispatch = (store) => {
+    const rawDispatch = store.dispatch;
+
+    return (action) => {
+        if(typeof action.then === 'function') {
+            return action.then( rawDispatch );
+        }
+        else {
+            console.log(2);
+            return rawDispatch(action);
+        }
+    };
+}
+
 const configureStore = () => {
     const store = createStore(
         todoAppReducer,
@@ -24,6 +38,7 @@ const configureStore = () => {
     );
 
     store.dispatch = addLoggingToDispatch(store);
+    store.dispatch = addPromiseSuppportToDispatch(store);
 
     return store;
 };

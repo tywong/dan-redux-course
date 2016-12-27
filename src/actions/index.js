@@ -1,10 +1,17 @@
 import uuid from 'node-uuid';
+import * as api from '../api';
 
 const receiveTodos = (todos, filter) => ( {
     type: 'RECEIVE_TODOS',
     todos,
     filter
-})
+});
+
+const fetchTodos = (filter) => {
+    return api.fetchTodos(filter).then( todos => {
+        return receiveTodos(todos, filter);
+    });
+};
 
 const addTodo = (text) => ( {
     type: 'ADD_TODO',
@@ -20,5 +27,5 @@ const todoClick = (id) => ({
 export {
     addTodo,
     todoClick,
-    receiveTodos
+    fetchTodos
 };
