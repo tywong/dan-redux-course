@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "devDependencies": {
+    "babel-plugin-transform-object-rest-spread": "^6.20.2",
     "react-scripts": "0.8.4"
   },
   "dependencies": {
