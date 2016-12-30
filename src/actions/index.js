@@ -2,17 +2,6 @@ import uuid from 'node-uuid';
 import * as api from '../api';
 import { getIsFetching } from '../reducers';
 
-const requestTodos = (filter) => ({
-    type: 'FETCH_TODOS_REQUEST',
-    filter
-});
-
-const receiveTodos = (todos, filter) => ( {
-    type: 'FETCH_TODOS_SUCCESS',
-    todos,
-    filter
-});
-
 const fetchTodos = (filter) => (dispatch, getState) => {
     if(getIsFetching(getState(), filter)) {
         // prevent multiple fetching for the same list
@@ -20,11 +9,27 @@ const fetchTodos = (filter) => (dispatch, getState) => {
         return Promise.resolve();
     }
 
-    dispatch(requestTodos(filter));
-
-    return api.fetchTodos(filter).then( todos => {
-         dispatch(receiveTodos(todos, filter));
+    dispatch({
+        type: 'FETCH_TODOS_REQUEST',
+        filter
     });
+
+    return api.fetchTodos(filter).then(
+        response => {
+            dispatch({
+                type: 'FETCH_TODOS_SUCCESS',
+                response,
+                filter
+            });
+        },
+        error => {
+            dispatch({
+                type: 'FETCH_TODOS_FAILURE',
+                message: error.message,
+                filter
+            })
+        }
+    )
 };
 
 const addTodo = (text) => ( {
@@ -42,5 +47,4 @@ export {
     addTodo,
     todoClick,
     fetchTodos,
-    requestTodos
 };

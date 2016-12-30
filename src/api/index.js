@@ -22,10 +22,12 @@ const delay = (ms) =>
     new Promise(resolve => setTimeout(resolve, ms));
 
 const fetchTodos = (type) => {
-    console.log('fetchTodos');
-    return delay(5000)
+    return delay(1000)
     .then(
         () => {
+            if(Math.random() > 0.5)
+                throw new Error('WUAR');
+
             switch(type) {
                 case 'all':
                 return fakeDB;
