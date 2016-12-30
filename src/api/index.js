@@ -22,7 +22,8 @@ const delay = (ms) =>
     new Promise(resolve => setTimeout(resolve, ms));
 
 const fetchTodos = (type) => {
-    return delay(1000)
+    console.log('fetchTodos');
+    return delay(5000)
     .then(
         () => {
             switch(type) {

@@ -1,5 +1,6 @@
 import uuid from 'node-uuid';
 import * as api from '../api';
+import { getIsFetching } from '../reducers';
 
 const requestTodos = (filter) => ({
     type: 'REQUEST_TODOS',
@@ -12,7 +13,13 @@ const receiveTodos = (todos, filter) => ( {
     filter
 });
 
-const fetchTodos = (filter) => (dispatch) => {
+const fetchTodos = (filter) => (dispatch, getState) => {
+    if(getIsFetching(getState(), filter)) {
+        // prevent multiple fetching for the same list
+        // but allow parallel downloads from other list
+        return Promise.resolve();
+    }
+
     dispatch(requestTodos(filter));
 
     return api.fetchTodos(filter).then( todos => {
