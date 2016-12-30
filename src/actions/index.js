@@ -12,9 +12,11 @@ const receiveTodos = (todos, filter) => ( {
     filter
 });
 
-const fetchTodos = (filter) => {
+const fetchTodos = (filter) => (dispatch) => {
+    dispatch(requestTodos(filter));
+
     return api.fetchTodos(filter).then( todos => {
-        return receiveTodos(todos, filter);
+         dispatch(receiveTodos(todos, filter));
     });
 };
 
