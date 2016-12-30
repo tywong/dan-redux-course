@@ -1,8 +1,7 @@
-import uuid from 'node-uuid';
-import * as api from '../api';
 import { getIsFetching } from '../reducers';
+import * as api from '../api';
 
-const fetchTodos = (filter) => (dispatch, getState) => {
+export const fetchTodos = (filter) => (dispatch, getState) => {
     if(getIsFetching(getState(), filter)) {
         // prevent multiple fetching for the same list
         // but allow parallel downloads from other list
@@ -32,19 +31,18 @@ const fetchTodos = (filter) => (dispatch, getState) => {
     )
 };
 
-const addTodo = (text) => ( {
-    type: 'ADD_TODO',
-    id: uuid.v4(),
-    text
-} );
+export const addTodo = (text) => ( dispatch, getState ) => {
+    return api.addTodo(text).then(
+        response => {
+            dispatch({
+                type: 'ADD_TODO_SUCCESS',
+                response
+            });
+        }
+    );
+}
 
-const todoClick = (id) => ({
+export const todoClick = (id) => ({
     type: 'TOGGLE_TODO',
     id
 });
-
-export {
-    addTodo,
-    todoClick,
-    fetchTodos,
-};
