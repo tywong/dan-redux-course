@@ -21,27 +21,43 @@ const fakeDB = [
 const delay = (ms) =>
     new Promise(resolve => setTimeout(resolve, ms));
 
-const fetchTodos = (type) => {
+export const fetchTodos = (type) => {
     return delay(1000)
-    .then(
-        () => {
-            if(Math.random() > 0.5)
-                throw new Error('WUAR');
+    .then( () => {
+        if(Math.random() > 0.5)
+            throw new Error('WUAR');
 
-            switch(type) {
-                case 'all':
-                return fakeDB;
-                case 'active':
-                return fakeDB.filter( t => !t.completed );
-                case 'completed':
-                return fakeDB.filter( t => t.completed );
-                default:
-                return fakeDB;
-            }
+        switch(type) {
+            case 'all':
+            return fakeDB;
+            case 'active':
+            return fakeDB.filter( t => !t.completed );
+            case 'completed':
+            return fakeDB.filter( t => t.completed );
+            default:
+            throw new Error(`Unknown filter type: ${type}`);
         }
-    );
+    } );
 }
 
-export {
-    fetchTodos
+export const addTodo = (text) => {
+    return delay(1000)
+    .then( () => {
+        const todo = {
+            id: uuid.v4(),
+            completed: false,
+            text
+        };
+        fakeDB.push(todo);
+        return todo;
+    } );
+}
+
+export const toggleTodo = (id) => {
+    return delay(1000)
+    .then( () => {
+        const todo = fakeDB.find( (t) => t.id === id);
+        todo.completed = !todo.completed;
+        return todo;
+    } );
 }
