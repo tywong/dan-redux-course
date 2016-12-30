@@ -2,7 +2,7 @@ const todoCache = true;
 
 const byId = (state = {}, action) => {
     switch(action.type) {
-        case 'RECEIVE_TODOS':
+        case 'FETCH_TODOS_SUCCESS':
         const nextState = (todoCache) ? { ...state } : {} ;
         action.todos.forEach( (todo) => {
             nextState[todo.id] = todo;

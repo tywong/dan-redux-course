@@ -3,12 +3,12 @@ import * as api from '../api';
 import { getIsFetching } from '../reducers';
 
 const requestTodos = (filter) => ({
-    type: 'REQUEST_TODOS',
+    type: 'FETCH_TODOS_REQUEST',
     filter
 });
 
 const receiveTodos = (todos, filter) => ( {
-    type: 'RECEIVE_TODOS',
+    type: 'FETCH_TODOS_SUCCESS',
     todos,
     filter
 });
