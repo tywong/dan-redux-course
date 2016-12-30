@@ -34,17 +34,19 @@ export const fetchTodos = (filter) => (dispatch, getState) => {
 };
 
 export const addTodo = (text) => ( dispatch, getState ) => {
-    return api.addTodo(text).then(
-        response => {
-            dispatch({
-                type: 'ADD_TODO_SUCCESS',
-                response: normalize(response, schema.todo)
-            });
-        }
-    );
+    return api.addTodo(text).then( response => {
+        dispatch({
+            type: 'ADD_TODO_SUCCESS',
+            response: normalize(response, schema.todo)
+        });
+    } );
 }
 
-export const todoClick = (id) => ({
-    type: 'TOGGLE_TODO',
-    id
-});
+export const todoClick = (id) => ( dispatch, getState) => {
+    return api.toggleTodo(id).then( response => {
+        dispatch({
+            type: 'TOGGLE_TODO_SUCCESS',
+            response: normalize(response, schema.todo)
+        })
+    } );
+};
